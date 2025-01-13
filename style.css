@@ -12,6 +12,7 @@
   --surface-color-hover: rgba(0, 0, 0, 0.02);
   --highlight-color: rgba(255, 255, 255, 0.2);
   --switch-bg-url: url(assets/MoonStars.svg);
+  --color-img: white;
 }
 
 .light {
@@ -19,13 +20,15 @@
   --bg-url: url(./assets/bg-mobile-light.jpg);
   --stroke-color: rgba(0, 0, 0, 0.5);
   --surface-color: rgba(0, 0, 0, 0.05);
-  --surface-color-hover: rgba(0, 0, 0, 0.02);
+  --surface-color-hover: rgba(0, 0, 0, 0.1);
   --highlight-color: rgba(0, 0, 0, 0.1);
   --switch-bg-url: url(assets/Sun.svg);
+  --color-img: white;
 }
 
 body {
-  background: var(--bg-url) no-repeat top center/cover;
+  background: var(--bg-url)no-repeat top center/cover;
+  height: 100%;
 }
 
 body * {
@@ -34,7 +37,8 @@ body * {
 }
 
 #container {
-  width: 360px;
+  width: 100%;
+  max-width: 588px;
   margin: 56px auto 0px;
   padding: 0 24px;
 }
@@ -46,10 +50,12 @@ body * {
 
 #profile img {
   width: 112px;
+  background: var(--color-img);
+  border-radius: 50%;
 }
 
 #profile p {
-  font-weight: 500;
+  font-weight: 500px;
   line-height: 24px;
   margin-top: 8px;
 }
@@ -66,17 +72,22 @@ body * {
   background: white var(--switch-bg-url) no-repeat center;
   border: 0;
   border-radius: 50%;
-  
+
   position: absolute;
-  right: 1;
+  left: 0;
   z-index: 1;
   top: 50%;
   transform: translateY(-50%);
+
+  animation: slide-out 0.4s forwards;
 }
 
 .light #switch button {
-  right: 0;
-  left: initial;
+  animation: slide-in 0.4s forwards;
+}
+
+switch button :hover {
+  outline: 8px solid var(--highlight-color);
 }
 
 #switch span {
@@ -99,7 +110,6 @@ ul {
 }
 
 ul li a {
-  border: 1px solid red;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,4 +159,31 @@ footer {
   padding: 24px 0;
   text-align: center;
   font-size: 14px;
+}
+
+@media (min-width: 700px) {
+  :root {
+    --bg-url: url(assets/bg-desktop.jpg);
+  }
+  .light {
+    --bg-url: url(assets/bg-desktop-light.jpg);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    left: 0;
+  }
+  to {
+    left: 50%;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    left: 50%;
+  }
+  to {
+    left: 0;
+  }
 }
